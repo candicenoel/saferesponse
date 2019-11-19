@@ -10,7 +10,26 @@ class PlacesController < ApplicationController
   end
 
   def create
-    current_user.places.create(place_params)
+    @place = current_user.place.create(place_params)
+    if @place.valid?
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def show
+    @place = Place.find(params[:id])
+    @photo = Photo.new
+  end
+
+  def edit
+    @place = Place.find(params[:id])
+  end
+
+  def update
+    @place = Place.find(params[:id])
+    @place.update_attributes(place_params)
     redirect_to root_path
   end
 
@@ -18,11 +37,6 @@ class PlacesController < ApplicationController
 
   def place_params
     params.require(:place).permit(:name, :description, :address)
-  end
-
-  def show
-    @place = Place.find(params[:id])
-    @photos = Photo.new
   end
 
 end

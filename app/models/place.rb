@@ -1,4 +1,8 @@
 class Place < ApplicationRecord
+  mount_uploader :facility_maps, FacilityMapsUploader
   belongs_to :user
-  belongs_to :photos
+
+  has_many :facility_maps
+
+  validates :name, presence: true
 end

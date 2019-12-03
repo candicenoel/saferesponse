@@ -4,9 +4,15 @@
     <%= f.input :name %>
     <%= f.input :address %>
     <%= f.input :description %>
-    <%= f.input :picture %>
-    <%= f.input :review %>
+    <%= f.input :facility_maps, as: :file %>
     <br />
     <%= f.submit 'Create', class: 'btn btn-primary' %>
+  <% end %>
+  <% if @place.errors.any? %>
+  <ul>
+  <% @place.errors.full_messages.each do |msg| %>
+    <li class="invalid-feedback"><%= msg %></li>
+    <% end %>
+  </ul>
   <% end %>
 </div>
